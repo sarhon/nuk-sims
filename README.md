@@ -90,8 +90,8 @@ Reactivity $\rho$ is dimensionless, but reactor engineers use two scaled units f
 
 | Unit | Definition | Physical meaning |
 |------|------------|-----------------|
-| **dollars** ($) | $\rho_\$ = \rho / \beta$ | $\rho = 1\,\$$ is exactly prompt critical |
-| **cents** (¢) | $\rho_\text{¢} = 100 \cdot \rho_\$$ | 1/100th of a dollar |
+| **dollars** ($) | rho_$ = rho / beta | rho = 1 $ is exactly prompt critical |
+| **cents** (¢) | rho_cents = 100 * rho_$ | 1/100th of a dollar |
 
 **Conversion example** with $\beta = 0.006502$:
 
@@ -107,10 +107,10 @@ Both scripts accept `$` or `cents` as the `--unit` argument and display results 
 
 | Condition | Name | Behavior |
 |-----------|------|----------|
-| $\rho < 0$ ($\rho_\$ < 0$) | **Subcritical** | Power decreases exponentially |
-| $\rho = 0$ ($\rho_\$ = 0$) | **Critical** | Steady state, constant power |
-| $0 < \rho < \beta$ ($0 < \rho_\$ < 1$) | **Delayed supercritical** | Slow power rise governed by precursor decay (seconds to minutes) |
-| $\rho \ge \beta$ ($\rho_\$ \ge 1$) | **Prompt supercritical** ⚠️ | Prompt neutrons alone sustain reaction; power rises on microsecond timescale |
+| $\rho < 0$ (rho_$ < 0) | **Subcritical** | Power decreases exponentially |
+| $\rho = 0$ (rho_$ = 0) | **Critical** | Steady state, constant power |
+| $0 < \rho < \beta$ (0 < rho_$ < 1) | **Delayed supercritical** | Slow power rise governed by precursor decay (seconds to minutes) |
+| $\rho \ge \beta$ (rho_$ >= 1) | **Prompt supercritical** | Prompt neutrons alone sustain reaction; power rises on microsecond timescale |
 
 The delayed supercritical regime is the normal operating range for power changes.  
 Prompt supercritical is the condition during reactor accidents (e.g. Chernobyl Unit 4).
@@ -167,11 +167,11 @@ Both scripts use `scipy.integrate.solve_ivp` with `method='Radau'`:
 For a step insertion, after the initial fast transient the neutron density makes an instantaneous
 "prompt jump" before the precursors have time to respond:
 
-$$\frac{n^+}{n^-} = \frac{\beta - \rho_\text{before}}{\beta - \rho_\text{after}}$$
+$$\frac{n^+}{n^-} = \frac{\beta - \rho_{\rm before}}{\beta - \rho_{\rm after}}$$
 
 For a step from $\rho = 0$ to $\rho$:
 
-$$\frac{n_\text{pj}}{n_0} = \frac{\beta}{\beta - \rho}$$
+$$\frac{n_{\rm pj}}{n_0} = \frac{\beta}{\beta - \rho}$$
 
 This analytical estimate is printed alongside the numerical result as a sanity check.  
 It is only accurate for $|\rho| \ll \beta$.
@@ -216,7 +216,7 @@ uv run python pke/pke_gui.py
 **Step** — instantaneous reactivity change at time $t_0$  
 Enter: reactivity value, unit ($ or ¢), insertion time
 
-**Ramp** — linear increase from 0 to $\rho_\text{final}$ over $[t_\text{start},\, t_\text{end}]$, constant after  
+**Ramp** — linear increase from 0 to $\rho_{\rm final}$ over $[t_{\rm start},\, t_{\rm end}]$, constant after  
 Enter: final reactivity, unit, start time, end time
 
 **Dynamic** — arbitrary sequence of step events  
@@ -390,7 +390,7 @@ Composite transient shows the asymptotic period shifting as ρ changes.
 
 ---
 
-### 5. Prompt supercritical ⚠️
+### 5. Prompt supercritical
 
 ```bash
 uv run python pke/pke_sim.py --mode step --rho 1.05 --unit '$' --t0 0 --t-end 0.001
