@@ -1,0 +1,10 @@
+[project]
+name = "nuk-sims"
+version = "0.1.0"
+requires-python = ">=3.14"
+dependencies = [
+    "numpy>=2.0",
+    "scipy>=1.14",
+    "matplotlib>=3.9",
+    "scipy-stubs~=1.17.1",
+]
